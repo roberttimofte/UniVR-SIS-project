@@ -1,0 +1,15 @@
+.model VOLIN
+.inputs VIN5 VIN4 VIN3 VIN2 VIN1 VIN0 GC
+.outputs VI5 VI4 VI3 VI2 VI1 VI0
+
+#registro che memorizza il valore di vin
+.subckt REGISTRO6 A5=VI5 A4=VI4 A3=VI3 A2=VI2 A1=VI1 A0=VI0 O5=MX5 O4=MX4 O3=MX3 O2=MX2 O1=MX1 O0=MX0
+
+#multiplexer che sceglie tra il valore corrente di vin e quello fornito in input al datapath
+#in ogni caso il valore restituito verra' memorizzato nel registro 
+.subckt MUX6 A5=VIN5 A4=VIN4 A3=VIN3 A2=VIN2 A1=VIN1 A0=VIN0 B5=MX5 B4=MX4 B3=MX3 B2=MX2 B1=MX1 B0=MX0 S=GC O5=VI5 O4=VI4 O3=VI3 O2=VI2 O1=VI1 O0=VI0
+
+.end
+
+.search registro6.blif
+.search mux6.blif

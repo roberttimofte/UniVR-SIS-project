@@ -1,0 +1,30 @@
+.model DATAPATH
+.inputs i5 i4 i3 i2 i1 i0 ga gb gc gd ge gf oi
+.outputs na3 na2 na1 na0 nb3 nb2 nb1 nb0 nc3 nc2 nc1 nc0 ne3 ne2 ne1 ne0 nf3 nf2 nf1 nf0 ovB ovE volOver volCheck
+
+#contatore NA
+.subckt NA GA=ga OI=oi NA3=na3 NA2=na2 NA1=na1 NA0=na0
+
+#contatore NB
+.subckt NB GB=gb OI=oi overB=ovB NB3=nb3 NB2=nb2 NB1=nb1 NB0=nb0
+
+#contatore NC
+.subckt NC GC=gc OI=oi NC3=nc3 NC2=nc2 NC1=nc1 NC0=nc0
+
+#contatore NE
+.subckt NE GE=ge OI=oi overE=ovE NE3=ne3 NE2=ne2 NE1=ne1 NE0=ne0
+
+#contatore NF
+.subckt NF GF=gf OI=oi NF3=nf3 NF2=nf2 NF1=nf1 NF0=nf0
+
+#controllo quantita' scarto nel serbatoio
+.subckt VOLCONTROL I5=i5 I4=i4 I3=i3 I2=i2 I1=i1 I0=i0 gc=gc gd=gd oi=oi overV=volOver cVOL=volCheck
+
+.end
+
+.search na.blif
+.search nb.blif
+.search nc.blif
+.search ne.blif
+.search nf.blif
+.search vol_control.blif

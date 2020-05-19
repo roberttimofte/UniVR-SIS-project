@@ -1,0 +1,42 @@
+.model SCARTO
+.inputs VIN5 VIN4 VIN3 VIN2 VIN1 VIN0 VOUT5 VOUT4 VOUT3 VOUT2 VOUT1 VOUT0 GD OI VCHECK
+.outputs oV
+
+#costante zero su 1 bit
+.names ZERO
+
+#costante duecento su 8 bit
+.subckt COSTANTE200 O7=C07 O6=C06 O5=C05 O4=C04 O3=C03 O2=C02 O1=C01 O0=C00
+
+#negatore che nega il valore di vout per poter calcolare la differenza
+.subckt NEGATORE8 I7=ZERO I6=ZERO I5=VOUT5 I4=VOUT4 I3=VOUT3 I2=VOUT2 I1=VOUT1 I0=VOUT0 O7=OPD7 O6=OPD6 O5=OPD5 O4=OPD4 O3=OPD3 O2=OPD2 O1=OPD1 O0=OPD0
+
+#calcolo la differenza tra vin e vout
+.subckt SOMMATORE8 A7=ZERO A6=ZERO A5=VIN5 A4=VIN4 A3=VIN3 A2=VIN2 A1=VIN1 A0=VIN0 B7=OPD7 B6=OPD6 B5=OPD5 B4=OPD4 B3=OPD3 B2=OPD2 B1=OPD1 B0=OPD0 CIN=ZERO O7=OPS7 O6=OPS6 O5=OPS5 O4=OPS4 O3=OPS3 O2=OPS2 O1=OPS1 O0=OPS0 COUT=C0
+
+#registro che memorizza la quantita' di scarto presente nel serbatoio
+.subckt REGISTRO8 A7=V7 A6=V6 A5=V5 A4=V4 A3=V3 A2=V2 A1=V1 A0=V0 O7=OPX7 O6=OPX6 O5=OPX5 O4=OPX4 O3=OPX3 O2=OPX2 O1=OPX1 O0=OPX0
+
+#sommo la differenza appena calcolata al valore memorizzato nel registro
+.subckt SOMMATORE8 A7=OPS7 A6=OPS6 A5=OPS5 A4=OPS4 A3=OPS3 A2=OPS2 A1=OPS1 A0=OPS0 B7=OPX7 B6=OPX6 B5=OPX5 B4=OPX4 B3=OPX3 B2=OPX2 B1=OPX1 B0=OPX0 CIN=C0 O7=MX7 O6=MX6 O5=MX5 O4=MX4 O3=MX3 O2=MX2 O1=MX1 O0=MX0 COUT=COUT
+
+#multiplexer che sceglie tra il valore presente nel registro e quello calcolato con la somma
+.subckt MUX8 A7=MX7 A6=MX6 A5=MX5 A4=MX4 A3=MX3 A2=MX2 A1=MX1 A0=MX0 B7=OPX7 B6=OPX6 B5=OPX5 B4=OPX4 B3=OPX3 B2=OPX2 B1=OPX1 B0=OPX0 S=GD O7=VL7 O6=VL6 O5=VL5 O4=VL4 O3=VL3 O2=VL2 O1=VL1 O0=VL0
+
+#verifico se la quantita' di scarto e' maggiore di 200
+.subckt MAGGIORE8 A7=VL7 A6=VL6 A5=VL5 A4=VL4 A3=VL3 A2=VL2 A1=VL1 A0=VL0 B7=C07 B6=C06 B5=C05 B4=C04 B3=C03 B2=C02 B1=C01 B0=C00 O=oV 
+
+#in caso di spegnimento della macchina, azzero il registro
+.subckt MUX8 A7=VL7 A6=VL6 A5=VL5 A4=VL4 A3=VL3 A2=VL2 A1=VL1 A0=VL0 B7=ZERO B6=ZERO B5=ZERO B4=ZERO B3=ZERO B2=ZERO B1=ZERO B0=ZERO S=OI O7=VL07 O6=VL06 O5=VL05 O4=VL04 O3=VL03 O2=VL02 O1=VL01 O0=VL00
+
+#se vout >= vin, non calcolo la differenza
+.subckt MUX8 A7=OPX7 A6=OPX6 A5=OPX5 A4=OPX4 A3=OPX3 A2=OPX2 A1=OPX1 A0=OPX0 B7=VL07 B6=VL06 B5=VL05 B4=VL04 B3=VL03 B2=VL02 B1=VL01 B0=VL00 S=VCHECK O7=V7 O6=V6 O5=V5 O4=V4 O3=V3 O2=V2 O1=V1 O0=V0
+
+.end
+
+.search kduecento8.blif
+.search registro8.blif
+.search negatore8.blif
+.search sommatore8.blif
+.search mux8.blif
+.search maggiore8.blif

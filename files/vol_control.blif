@@ -1,0 +1,39 @@
+.model VOLCONTROL
+.inputs I5 I4 I3 I2 I1 I0 gc gd oi
+.outputs overV cVOL
+
+#costante uno su 1 bit
+.subckt COST1 O=UNO
+
+#VIN
+.subckt VOLIN VIN5=I5 VIN4=I4 VIN3=I3 VIN2=I2 VIN1=I1 VIN0=I0 GC=gc VI5=vin5 VI4=vin4 VI3=vin3 VI2=vin2 VI1=vin1 VI0=vin0
+
+#VOUT
+.subckt VOLOUT VOUT5=I5 VOUT4=I4 VOUT3=I3 VOUT2=I2 VOUT1=I1 VOUT0=I0 GD=gd VO5=vout5 VO4=vout4 VO3=vout3 VO2=vout2 VO1=vout1 VO0=vout0
+
+#controllo se vout e' maggiore di vin
+.subckt MAGGIORE6 A5=vout5 A4=vout4 A3=vout3 A2=vout2 A1=vout1 A0=vout0 B5=vin5 B4=vin4 B3=vin3 B2=vin2 B1=vin1 B0=vin0 O=MX0
+
+#controllo se vout e' maggiore di vin
+.subckt UGUALE6 A5=vout5 A4=vout4 A3=vout3 A2=vout2 A1=vout1 A0=vout0 B5=vin5 B4=vin4 B3=vin3 B2=vin2 B1=vin1 B0=vin0 O=s
+
+#multiplexer che sceglie tra il valore uno e quello restituito dal controllo di uguaglianza
+.subckt MUX A=UNO B=MX0 S=s O=cVOL
+
+#calcolo scarto
+.subckt SCARTO VIN5=vin5 VIN4=vin4 VIN3=vin3 VIN2=vin2 VIN1=vin1 VIN0=vin0 VOUT5=vout5 VOUT4=vout4 VOUT3=vout3 VOUT2=vout2 VOUT1=vout1 VOUT0=vout0 GD=gd OI=oi VCHECK=cVOL oV=overV
+
+.end
+
+.model COST1
+.outputs O
+.names O
+1
+.end
+
+.search vin.blif
+.search vout.blif
+.search maggiore6.blif
+.search uguale6.blif
+.search mux.blif
+.search scarto.blif

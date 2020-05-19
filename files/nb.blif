@@ -1,0 +1,37 @@
+.model NB
+.inputs GB OI
+.outputs overB NB3 NB2 NB1 NB0
+
+#costante zero su 1 bit per cin
+.names ZERO
+
+#costante zero su 4 bit
+.subckt COSTANTE0 O3=C07 O2=C06 O1=C05 O0=C04
+
+#costante uno su 4 bit
+.subckt COSTANTE1 O3=C03 O2=C02 O1=C01 O0=C00
+
+#registro che memorizza il valore del contatore 
+.subckt REGISTRO4 A3=NB3 A2=NB2 A1=NB1 A0=NB0 O3=OP3 O2=OP2 O1=OP1 O0=OP0
+
+#aggiungo uno al valore del contatore
+.subckt SOMMATORE4 A3=OP3 A2=OP2 A1=OP1 A0=OP0 B3=C03 B2=C02 B1=C01 B0=C00 CIN=ZERO O3=MX3 O2=MX2 O1=MX1 O0=MX0 COUT=COUT
+
+#multiplexer che sceglie tra il valore corrente di nb e quello incrementato di 1
+.subckt MUX4 A3=MX3 A2=MX2 A1=MX1 A0=MX0 B3=OP3 B2=OP2 B1=OP1 B0=OP0 S=GB O3=OK3 O2=OK2 O1=OK1 O0=OK0
+
+#controllo se c'e' overload
+.subckt UGUALE4 A3=OK3 A2=OK2 A1=OK1 A0=OK0 B3=C07 B2=C06 B1=C05 B0=C04 O=overB
+
+#multiplexer che azzera il contatore se la macchina e' spenta
+.subckt MUX4 A3=OK3 A2=OK2 A1=OK1 A0=OK0 B3=C07 B2=C06 B1=C05 B0=C04 S=OI O3=NB3 O2=NB2 O1=NB1 O0=NB0
+
+.end
+
+.search kzero4.blif
+.search kuno4.blif
+.search sommatore4.blif
+.search registro4.blif
+.search mux4.blif
+.search uguale4.blif
+

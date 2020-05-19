@@ -1,0 +1,15 @@
+.model VOLOUT
+.inputs VOUT5 VOUT4 VOUT3 VOUT2 VOUT1 VOUT0 GD
+.outputs VO5 VO4 VO3 VO2 VO1 VO0
+
+#registro che memorizza il valore di vout
+.subckt REGISTRO6 A5=VO5 A4=VO4 A3=VO3 A2=VO2 A1=VO1 A0=VO0 O5=MX5 O4=MX4 O3=MX3 O2=MX2 O1=MX1 O0=MX0
+
+#multiplexer che sceglie tra il valore corrente di vout e quello fornito in input al datapath
+#in ogni caso il valore restituito verra' memorizzato nel registro 
+.subckt MUX6 A5=VOUT5 A4=VOUT4 A3=VOUT3 A2=VOUT2 A1=VOUT1 A0=VOUT0 B5=MX5 B4=MX4 B3=MX3 B2=MX2 B1=MX1 B0=MX0 S=GD O5=VO5 O4=VO4 O3=VO3 O2=VO2 O1=VO1 O0=VO0
+
+.end
+
+.search registro6.blif
+.search mux6.blif

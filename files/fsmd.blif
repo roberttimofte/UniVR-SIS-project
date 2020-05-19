@@ -1,0 +1,14 @@
+.model FSMD
+.inputs I6 I5 I4 I3 I2 I1 I0
+.outputs OI ERR2 ERR1 ERR0 GA GB GC GD GE GF NA3 NA2 NA1 NA0 NB3 NB2 NB1 NB0 NC3 NC2 NC1 NC0 NE3 NE2 NE1 NE0 NF3 NF2 NF1 NF0
+
+#controllo
+.subckt FSM i6=I6 i5=I5 i4=I4 i3=I3 i2=I2 i1=I1 i0=I0 overB=OVERB overE=OVERE overV=OVERV vCHECK=VCHECK oi=OI err2=ERR2 err1=ERR1 err0=ERR0 ga=GA gb=GB gc=GC gd=GD ge=GE gf=GF
+
+#elaborazione
+.subckt DATAPATH i5=I5 i4=I4 i3=I3 i2=I2 i1=I1 i0=I0 ga=GA gb=GB gc=GC gd=GD ge=GE gf=GF oi=OI na3=NA3 na2=NA2 na1=NA1 na0=NA0 nb3=NB3 nb2=NB2 nb1=NB1 nb0=NB0 nc3=NC3 nc2=NC2 nc1=NC1 nc0=NC0 ne3=NE3 ne2=NE2 ne1=NE1 ne0=NE0 nf3=NF3 nf2=NF2 nf1=NF1 nf0=NF0 ovB=OVERB ovE=OVERE volOver=OVERV volCheck=VCHECK
+
+.end
+
+.search FSM.blif
+.search DATAPATH.blif

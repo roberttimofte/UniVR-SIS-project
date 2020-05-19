@@ -1,0 +1,17 @@
+.model UGUALE6
+.inputs A5 A4 A3 A2 A1 A0 B5 B4 B3 B2 B1 B0
+.outputs O
+
+.subckt xnor A=A5 B=B5 X=X5
+.subckt xnor A=A4 B=B4 X=X4
+.subckt xnor A=A3 B=B3 X=X3
+.subckt xnor A=A2 B=B2 X=X2
+.subckt xnor A=A1 B=B1 X=X1
+.subckt xnor A=A0 B=B0 X=X0
+
+.names X5 X4 X3 X2 X1 X0 O
+111111 1
+
+.end
+
+.search xnor.blif

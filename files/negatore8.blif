@@ -1,0 +1,18 @@
+.model NEGATORE8
+.inputs I7 I6 I5 I4 I3 I2 I1 I0
+.outputs O7 O6 O5 O4 O3 O2 O1 O0
+
+.subckt NEGATORE I=I7 O=O7 
+.subckt NEGATORE I=I6 O=O6 
+.subckt NEGATORE I=I5 O=O5 
+.subckt NEGATORE I=I4 O=O4 
+.subckt NEGATORE I=I3 O=O3 
+.subckt NEGATORE I=I2 O=O2 
+.subckt NEGATORE I=I1 O=O1 
+.subckt NEGATORE I=I0 O=O0
+
+.end
+
+.search negatore.blif 
+
+
